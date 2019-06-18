@@ -3,6 +3,7 @@ package service;
 import org.springframework.stereotype.Service;
 
 import dao.UserDAO;
+import exception.UserNotFoundException;
 import model.User;
 
 @Service
