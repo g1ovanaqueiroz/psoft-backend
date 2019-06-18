@@ -36,8 +36,8 @@ public class UserController {
 	// This method finds an user through his email
 	@GetMapping(value = "/{email}")
 	@ResponseBody
-	public ResponseEntity<User> findById(@PathVariable String email) {
-		User user = userService.findById(email);
+	public ResponseEntity<User> findByEmail(@PathVariable String email) {
+		User user = userService.findByEmail(email);
 
 		if (user == null) {
 			throw new UserNotFoundException("User not found");

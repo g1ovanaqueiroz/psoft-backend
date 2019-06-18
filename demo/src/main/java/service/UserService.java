@@ -43,7 +43,7 @@ public class UserService {
    }
 
    // it finds an user through his email
-   public User findById(String email) {
+   public User findByEmail(String email) {
        return userDAO.findByEmail(email);
    }
 }
