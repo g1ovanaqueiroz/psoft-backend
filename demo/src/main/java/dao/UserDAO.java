@@ -10,7 +10,6 @@ import model.User;
 @Repository
 public interface UserDAO<T, ID extends Serializable> extends JpaRepository<User, Long> {
 
-   User save(User user);
-
-   User findById(String email);
+	User save(User user);
+	User findById(String email);
 }
