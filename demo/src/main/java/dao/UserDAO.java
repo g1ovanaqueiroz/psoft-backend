@@ -1,15 +1,13 @@
 package dao;
 
-import java.io.Serializable;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import model.User;
 
 @Repository
-public interface UserDAO<T, ID extends Serializable> extends JpaRepository<User, Long> {
+public interface UserDAO<T, ID> extends JpaRepository<User, String> {
 
 	User save(User user);
-	User findById(String email);
+	User findByEmail(String email);
 }

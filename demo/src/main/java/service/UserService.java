@@ -30,7 +30,7 @@ public class UserService {
    public User update(User userToUpdate) throws UserNotFoundException {
 
 
-       User user = userDAO.findById(userToUpdate.getEmail());
+       User user = userDAO.findByEmail(userToUpdate.getEmail());
        if (user == null)
            throw new UserNotFoundException("Could not update. The product does not exist.");
 
@@ -44,6 +44,6 @@ public class UserService {
 
    // it finds an user through his email
    public User findById(String email) {
-       return userDAO.findById(email);
+       return userDAO.findByEmail(email);
    }
 }
