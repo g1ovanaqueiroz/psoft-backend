@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+/**
+ * 
+ * This class will capture all the exceptions that are thrown in a class
+ * @author Giovana Brito Oliveira
+ *
+ */
 @ControllerAdvice
 public class RestExceptionHandler {
 

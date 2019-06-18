@@ -16,6 +16,13 @@ import exception.UserNotFoundException;
 import model.User;
 import service.UserService;
 
+
+/**
+ * 
+ * User Controller - manages the creation, deletion and updating of users
+ * @author Giovana Brito Oliveria
+ *
+ */
 @RestController
 @RequestMapping({ "/v1/users" })
 public class UserController {
@@ -26,6 +33,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	// This method finds an user through his email
 	@GetMapping(value = "/{email}")
 	@ResponseBody
 	public ResponseEntity<User> findById(@PathVariable String email) {
@@ -38,6 +46,7 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
+	// User creation method
 	@PostMapping(value = "/")
 	@ResponseBody
 	public ResponseEntity<User> create(@RequestBody User user) {
@@ -50,6 +59,7 @@ public class UserController {
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
 	
+	//User deletion method
 	@DeleteMapping(value = "/{email}")
 	   public ResponseEntity delete(@PathVariable String email) {
 	       try {
@@ -60,6 +70,7 @@ public class UserController {
 	       }
 	   }
 	
+	//User updating method
 	@PutMapping(value = "/")
 	   public ResponseEntity<User> update(@RequestBody User user) {
 	       try {
