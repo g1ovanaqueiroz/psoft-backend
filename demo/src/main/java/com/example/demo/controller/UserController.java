@@ -1,4 +1,4 @@
-package controller;
+package com.example.demo.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import exception.UserNotFoundException;
-import model.User;
-import service.UserService;
+import com.example.demo.exception.user.UserNotFoundException;
+import com.example.demo.model.User;
+import com.example.demo.model.UserDTO;
+import com.example.demo.service.UserService;
 
 
 /**
@@ -24,7 +25,7 @@ import service.UserService;
  *
  */
 @RestController
-@RequestMapping({ "/v1/users" })
+@RequestMapping("/v1/users")
 public class UserController {
 
 	private UserService userService;
@@ -32,35 +33,38 @@ public class UserController {
 	UserController(UserService userService) {
 		this.userService = userService;
 	}
-
-	// This method finds an user through his email
-	@GetMapping(value = "/{email}")
+	
+	//This method returns the token of an existing user
+	@PostMapping(value = "/login")
 	@ResponseBody
-	public ResponseEntity<User> findByEmail(@PathVariable String email) {
-		User user = userService.findByEmail(email);
-
-		if (user == null) {
-			throw new UserNotFoundException("User not found");
+	public ResponseEntity<UserDTO> login(@RequestBody String email) {
+		User newUser = userService.findByEmail(email);
+		
+		if (newUser == null) {
+			throw new UserNotFoundException("User not found!");
 		}
-
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+		
+		UserDTO userDTO = new UserDTO(newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), "123");
+		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.FOUND);
 	}
 
 	// User creation method
-	@PostMapping(value = "/")
+	@PostMapping(value = "/singup")
 	@ResponseBody
-	public ResponseEntity<User> create(@RequestBody User user) {
+	public ResponseEntity<UserDTO> singup(@RequestBody User user) {
 		User newUser = userService.create(user);
 
 		if (newUser == null) {
 			throw new InternalError("Something went wrong");
 		}
 		
-		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+		UserDTO userDTO = new UserDTO(user.getFirstName(), user.getLastName(), user.getEmail(), "123");
+		
+		return new ResponseEntity<UserDTO>(userDTO, HttpStatus.CREATED);
 	}
 	
 	//User deletion method
-	@DeleteMapping(value = "/{email}")
+	@DeleteMapping(value = "/delete")
 	   public ResponseEntity delete(@PathVariable String email) {
 	       try {
 	           userService.delete(email);
@@ -71,7 +75,7 @@ public class UserController {
 	   }
 	
 	//User updating method
-	@PutMapping(value = "/")
+	@PutMapping(value = "/update")
 	   public ResponseEntity<User> update(@RequestBody User user) {
 	       try {
 	           User updated = userService.update(user);

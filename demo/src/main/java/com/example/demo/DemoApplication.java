@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
-import controller.TokenFilter;
+import com.example.demo.controller.TokenFilter;
 
 @SpringBootApplication
 public class DemoApplication {

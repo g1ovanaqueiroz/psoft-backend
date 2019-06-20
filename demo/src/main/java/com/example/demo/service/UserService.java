@@ -1,10 +1,10 @@
-package service;
+package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
 
-import dao.UserDAO;
-import exception.UserNotFoundException;
-import model.User;
+import com.example.demo.dao.UserDAO;
+import com.example.demo.exception.user.UserNotFoundException;
+import com.example.demo.model.User;
 
 /**
  * 

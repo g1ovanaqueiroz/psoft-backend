@@ -1,4 +1,4 @@
-package controller;
+package com.example.demo.controller;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import exception.InvalidPasswordException;
-import exception.UserNotFoundException;
+import com.example.demo.exception.user.UserNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import model.User;
-import service.UserService;
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
+
+import com.example.demo.exception.InvalidPasswordException;
 
 /**
  * 
