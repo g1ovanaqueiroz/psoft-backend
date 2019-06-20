@@ -49,7 +49,7 @@ public class UserController {
 	}
 
 	// User creation method
-	@PostMapping(value = "/singup")
+	@PostMapping(value = "/signup")
 	@ResponseBody
 	public ResponseEntity<UserDTO> singup(@RequestBody User user) {
 		User newUser = userService.create(user);
