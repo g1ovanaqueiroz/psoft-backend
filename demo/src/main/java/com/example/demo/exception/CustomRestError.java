@@ -9,43 +9,73 @@ import java.util.Date;
  */
 public class CustomRestError {
 
+	private Date date;
+	private String msg;
+	private String description;
 
-    private Date date;
-    private String msg;
-    private String description;
+	/**
+	 * CustomRestError constructor
+	 * 
+	 * @param date        date
+	 * @param msg         msg
+	 * @param description description
+	 */
+	public CustomRestError(Date date, String msg, String description) {
+		this.date = date;
+		this.msg = msg;
+		this.description = description;
+	}
 
-    public CustomRestError(Date date, String msg, String description) {
-        this.date = date;
-        this.msg = msg;
-        this.description = description;
-    }
-
-    // it returns the date
+	/**
+	 * Returns the date
+	 * 
+	 * @return date
+	 */
 	public Date getDate() {
 		return date;
 	}
 
-	// it updates the date
+	/**
+	 * Updates the date
+	 * 
+	 * @param date date
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	// it returns the msg
+	/**
+	 * Returns the msg
+	 * 
+	 * @return msg
+	 */
 	public String getMsg() {
 		return msg;
 	}
 
-	// it updates the msg
+	/**
+	 * Updates the msg
+	 * 
+	 * @param msg msg
+	 */
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
 
-	// it returns the description
+	/**
+	 * Returns the description
+	 * 
+	 * @return
+	 */
 	public String getDescription() {
 		return description;
 	}
 
-	// it updates the description
+	/**
+	 * Updates the description
+	 * 
+	 * @param description description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}

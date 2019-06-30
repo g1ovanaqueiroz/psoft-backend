@@ -24,10 +24,10 @@ import com.example.demo.service.StudentService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-
 /**
  * 
  * User Controller - manages the creation, deletion and updating of users
+ * 
  * @author Giovana Brito Oliveria
  *
  */
@@ -37,36 +37,48 @@ public class StudentController {
 
 	private StudentService studentService;
 
+	/**
+	 * StudentController constructor
+	 * 
+	 * @param studentService StudentService
+	 */
 	StudentController(StudentService studentService) {
 		this.studentService = studentService;
 	}
-	
-	//This method returns the token of an existing user
+
+	/**
+	 * Returns the token of an existing user
+	 * 
+	 * @param login user email and password
+	 * @return StudentDTO
+	 */
 	@GetMapping(value = "/login")
 	@ResponseBody
 	public ResponseEntity<StudentDTO> login(@RequestBody Login login) {
 		Student newUser = studentService.findByLogin(login.getEmail(), login.getPassword());
 		final String TOKEN_KEY = "magicword";
-		 
+
 		if (newUser == null) {
 			throw new StudentNotFoundException("Usuario nao encontrado!");
 		}
-		
-		if(!newUser.getPassword().equals(login.getPassword())) {
+
+		if (!newUser.getPassword().equals(login.getPassword())) {
 			throw new InvalidPasswordException("Senha invalida!");
 		}
-		
-		String token = Jwts.builder().
-				setSubject(newUser.getEmail()).
-				signWith(SignatureAlgorithm.HS512, TOKEN_KEY).
-				setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
-				.compact();
-		
+
+		String token = Jwts.builder().setSubject(newUser.getEmail()).signWith(SignatureAlgorithm.HS512, TOKEN_KEY)
+				.setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000)).compact();
+
 		StudentDTO userDTO = new StudentDTO(newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), token);
 		return new ResponseEntity<StudentDTO>(userDTO, HttpStatus.FOUND);
 	}
 
-	// Student creation method
+	/**
+	 * Student creation method
+	 * 
+	 * @param student Student
+	 * @return new StudentDTO
+	 */
 	@PostMapping(value = "/signup")
 	@ResponseBody
 	public ResponseEntity<StudentDTO> singup(@RequestBody Student student) {
@@ -76,47 +88,53 @@ public class StudentController {
 		if (newStudent == null) {
 			throw new InternalError("Something went wrong");
 		}
-		
-		String token = Jwts.builder().
-				setSubject(newStudent.getEmail()).
-				signWith(SignatureAlgorithm.HS512, TOKEN_KEY).
-				setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
-				.compact();
-		
-		StudentDTO studentDTO = new StudentDTO(student.getFirstName(), student.getLastName(), student.getEmail(), token);
-		
+
+		String token = Jwts.builder().setSubject(newStudent.getEmail()).signWith(SignatureAlgorithm.HS512, TOKEN_KEY)
+				.setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000)).compact();
+
+		StudentDTO studentDTO = new StudentDTO(student.getFirstName(), student.getLastName(), student.getEmail(),
+				token);
+
 		return new ResponseEntity<StudentDTO>(studentDTO, HttpStatus.CREATED);
 	}
-	
-	//Student deletion method
-	@DeleteMapping(value = "/delete/{email}")
-	   public ResponseEntity delete(@PathVariable String email) {
-	       try {
-	           studentService.delete(email);
-	           return new ResponseEntity(HttpStatus.OK);
-	       } catch (Exception e) {
-	           throw new InternalError("Something went wrong");
-	       }
-	   }
-	
-	//Student updating method
-	@PutMapping(value = "/")
-	   public ResponseEntity<StudentDTO> update(@RequestBody Student student) {
-	       try {
-	           Student updated = studentService.update(student);
-	           
-	           String token = Jwts.builder().
-	   				setSubject(updated.getEmail()).
-	   				signWith(SignatureAlgorithm.HS512, "secretword").
-	   				setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
-	   				.compact();
-	   		
-	   		StudentDTO userDTO = new StudentDTO(updated.getFirstName(), updated.getLastName(), updated.getEmail(), token);
-	   		return new ResponseEntity<StudentDTO>(userDTO, HttpStatus.OK);
-	       } catch (Exception e) {
-	           throw  new InternalError("Something went wrong");
-	       }
-	   }
 
-	
+	/**
+	 * Student deletion method
+	 * 
+	 * @param email user email
+	 * @return HttpStatus
+	 */
+	@DeleteMapping(value = "/delete/{email}")
+	public ResponseEntity delete(@PathVariable String email) {
+		try {
+			studentService.delete(email);
+			return new ResponseEntity(HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+	}
+
+	/**
+	 * Student updating method
+	 * 
+	 * @param student User to update
+	 * @return StudentDTO
+	 */
+	@PutMapping(value = "/")
+	public ResponseEntity<StudentDTO> update(@RequestBody Student student) {
+		try {
+			Student updated = studentService.update(student);
+
+			String token = Jwts.builder().setSubject(updated.getEmail())
+					.signWith(SignatureAlgorithm.HS512, "secretword")
+					.setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000)).compact();
+
+			StudentDTO userDTO = new StudentDTO(updated.getFirstName(), updated.getLastName(), updated.getEmail(),
+					token);
+			return new ResponseEntity<StudentDTO>(userDTO, HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+	}
+
 }

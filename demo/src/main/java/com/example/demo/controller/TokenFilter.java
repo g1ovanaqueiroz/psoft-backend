@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureException;
 
 /**
  * 
- * @author giovana
+ * @author Giovana Brito Oliveira
  *
  */
 public class TokenFilter extends GenericFilterBean {

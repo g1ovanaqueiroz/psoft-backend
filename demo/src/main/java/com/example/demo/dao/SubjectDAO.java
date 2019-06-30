@@ -10,16 +10,44 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.Subject;
 
+/**
+ * 
+ * @author Giovana Brito Oliveira
+ *
+ * @param <T> Subject
+ * @param <ID> Id number
+ */
 @Repository
 public interface SubjectDAO<T, ID extends Serializable> extends JpaRepository<Subject, Long> {
 
-   Subject save(Subject subject);
+	/**
+	 * Save a new Subject
+	 */
+	Subject save(Subject subject);
 
-   Subject findById(long id);
-   
-   @Query (value = "Select * from Subject s where s.name = :pname", nativeQuery = true)
-   Subject findByName(@Param("pname") String name);
-   
-   @Query(value = "Select s FROM Subject s WHERE s.name LIKE concat('%',:substring,'%')")
-   List<Subject> findBySubstring(@Param("substring") String substring);
+	/**
+	 * Find a Subject through his id number
+	 * 
+	 * @param id subject id number
+	 * @return Subject
+	 */
+	Subject findById(long id);
+
+	/**
+	 * Find a Subject through his name
+	 * 
+	 * @param name subject name
+	 * @return Subject
+	 */
+	@Query(value = "Select * from Subject s where s.name = :pname", nativeQuery = true)
+	Subject findByName(@Param("pname") String name);
+
+	/**
+	 * Find subjects that have this substring in their names
+	 * 
+	 * @param substring
+	 * @return Subject List
+	 */
+	@Query(value = "Select s FROM Subject s WHERE s.name LIKE concat('%',:substring,'%')")
+	List<Subject> findBySubstring(@Param("substring") String substring);
 }

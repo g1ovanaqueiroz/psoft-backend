@@ -9,46 +9,77 @@ import com.example.demo.model.Student;
 /**
  * 
  * Offers some services to the controller
+ * 
  * @author Giovana Brito Oliveira
  *
  */
 @Service
 public class StudentService {
 
-   private final StudentDAO studentDAO;
+	private final StudentDAO studentDAO;
 
-   StudentService(StudentDAO studentDAO) {
-       this.studentDAO = studentDAO;
-   }
+	/**
+	 * StudentService constructor
+	 * 
+	 * @param studentDAO StudentDAO
+	 */
+	StudentService(StudentDAO studentDAO) {
+		this.studentDAO = studentDAO;
+	}
 
-   // it creates an user
-   public Student create(Student student) {
-       return studentDAO.save(student);
-   }
+	/**
+	 * Creates an user
+	 * 
+	 * @param student
+	 * @return new Student
+	 */
+	public Student create(Student student) {
+		return studentDAO.save(student);
+	}
 
-   // it updates an user
-   public Student update(Student studentToUpdate) throws StudentNotFoundException {
+	/**
+	 * Updates an user
+	 * 
+	 * @param studentToUpdate
+	 * @return Updated Student
+	 * @throws StudentNotFoundException
+	 */
+	public Student update(Student studentToUpdate) throws StudentNotFoundException {
 
+		Student user = studentDAO.findByEmail(studentToUpdate.getEmail());
+		if (user == null)
+			throw new StudentNotFoundException("Could not update. The product does not exist.");
 
-       Student user = studentDAO.findByEmail(studentToUpdate.getEmail());
-       if (user == null)
-           throw new StudentNotFoundException("Could not update. The product does not exist.");
+		return studentDAO.save(studentToUpdate);
+	}
 
-       return studentDAO.save(studentToUpdate);
-   }
+	/**
+	 * Deleted an user through this email
+	 * 
+	 * @param email user email
+	 */
+	public void delete(String email) {
+		studentDAO.deleteById(email);
+	}
 
-   // to delete an user
-   public void delete(String email) {
-       studentDAO.deleteById(email);
-   }
+	/**
+	 * Find an user through his email
+	 * 
+	 * @param email user email
+	 * @return Student
+	 */
+	public Student findByEmail(String email) {
+		return studentDAO.findByEmail(email);
+	}
 
-   // it finds an user through his email
-   public Student findByEmail(String email) {
-       return studentDAO.findByEmail(email);
-   }
-   
-   // it finds an user through his email and his password
-   public Student findByLogin(String email, String password) {
-       return studentDAO.findByLogin(email, password);
-   }
+	/**
+	 * Find an user through his email and his password
+	 * 
+	 * @param email    user email
+	 * @param password user password
+	 * @return Student
+	 */
+	public Student findByLogin(String email, String password) {
+		return studentDAO.findByLogin(email, password);
+	}
 }

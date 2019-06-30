@@ -14,21 +14,22 @@ import com.example.demo.exception.user.StudentNotFoundException;
 /**
  * 
  * This class will capture all the exceptions that are thrown in a class
+ * 
  * @author Giovana Brito Oliveira
  *
  */
 @ControllerAdvice
 public class RestExceptionHandler {
 
-   @ExceptionHandler(Exception.class)
-   public ResponseEntity<CustomRestError> handleAnyException(Exception ex, WebRequest request) {
-       CustomRestError errorMessage = new CustomRestError(new Date(), ex.getMessage(), request.getDescription(false));
-       return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-   }
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<CustomRestError> handleAnyException(Exception ex, WebRequest request) {
+		CustomRestError errorMessage = new CustomRestError(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
-   @ExceptionHandler({StudentNotFoundException.class, })
-   public ResponseEntity<CustomRestError> notFound(Exception ex, WebRequest request) {
-       CustomRestError errorMessage = new CustomRestError(new Date(), ex.getMessage(), request.getDescription(false));
-       return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
-   }
+	@ExceptionHandler({ StudentNotFoundException.class, })
+	public ResponseEntity<CustomRestError> notFound(Exception ex, WebRequest request) {
+		CustomRestError errorMessage = new CustomRestError(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);
+	}
 }
