@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.exception.user.StudentNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import com.example.demo.model.Login;
 import com.example.demo.model.Student;
 import com.example.demo.service.StudentService;
 
@@ -30,15 +32,15 @@ public class LoginController {
 	private StudentService studentService;
 	
 	@PostMapping("/login")
-	public LoginResponse authenticate(@RequestBody Student student) throws StudentNotFoundException, InvalidPasswordException {
+	public LoginResponse authenticate(@RequestBody Login login) throws StudentNotFoundException, InvalidPasswordException {
 
-		Student authUser = studentService.findByEmail(student.getEmail());
+		Student authUser = studentService.findByEmail(login.getEmail());
 		
 		if(authUser == null) {
 			throw new StudentNotFoundException("Usuario nao encontrado!");
 		}
 		
-		if(!authUser.getPassword().equals(student.getPassword())) {
+		if(!authUser.getPassword().equals(login.getPassword())) {
 			throw new InvalidPasswordException("Senha invalida!");
 		}
 		

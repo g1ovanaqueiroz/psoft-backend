@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.exception.InvalidPasswordException;
 import com.example.demo.exception.user.StudentNotFoundException;
+import com.example.demo.model.Login;
 import com.example.demo.model.Student;
 import com.example.demo.model.StudentDTO;
 import com.example.demo.service.StudentService;
@@ -43,15 +44,15 @@ public class StudentController {
 	//This method returns the token of an existing user
 	@GetMapping(value = "/login")
 	@ResponseBody
-	public ResponseEntity<StudentDTO> login(@RequestBody String email, String password) {
-		Student newUser = studentService.findByLogin(email, password);
+	public ResponseEntity<StudentDTO> login(@RequestBody Login login) {
+		Student newUser = studentService.findByLogin(login.getEmail(), login.getPassword());
 		final String TOKEN_KEY = "magicword";
 		 
 		if (newUser == null) {
 			throw new StudentNotFoundException("Usuario nao encontrado!");
 		}
 		
-		if(!newUser.getPassword().equals(password)) {
+		if(!newUser.getPassword().equals(login.getPassword())) {
 			throw new InvalidPasswordException("Senha invalida!");
 		}
 		
@@ -88,7 +89,7 @@ public class StudentController {
 	}
 	
 	//Student deletion method
-	@DeleteMapping(value = "/delete")
+	@DeleteMapping(value = "/delete/{email}")
 	   public ResponseEntity delete(@PathVariable String email) {
 	       try {
 	           studentService.delete(email);
