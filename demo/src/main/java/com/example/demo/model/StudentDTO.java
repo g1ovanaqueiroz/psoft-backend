@@ -1,8 +1,8 @@
 package com.example.demo.model;
 
-public class UserDTO {
+public class StudentDTO {
 	
-	public UserDTO(String firstName, String lastName, String email, String token) {
+	public StudentDTO(String firstName, String lastName, String email, String token) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import com.example.demo.exception.user.UserNotFoundException;
+import com.example.demo.exception.user.StudentNotFoundException;
 
 /**
  * 
@@ -26,7 +26,7 @@ public class RestExceptionHandler {
        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
    }
 
-   @ExceptionHandler({UserNotFoundException.class, })
+   @ExceptionHandler({StudentNotFoundException.class, })
    public ResponseEntity<CustomRestError> notFound(Exception ex, WebRequest request) {
        CustomRestError errorMessage = new CustomRestError(new Date(), ex.getMessage(), request.getDescription(false));
        return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.NOT_FOUND);

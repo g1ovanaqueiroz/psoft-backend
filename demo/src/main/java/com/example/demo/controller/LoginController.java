@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.exception.user.UserNotFoundException;
+import com.example.demo.exception.user.StudentNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import com.example.demo.model.User;
-import com.example.demo.service.UserService;
+import com.example.demo.model.Student;
+import com.example.demo.service.StudentService;
 
 import com.example.demo.exception.InvalidPasswordException;
 
@@ -27,18 +27,18 @@ public class LoginController {
 	private final String TOKEN_KEY = "banana";
 	
 	@Autowired
-	private UserService userService;
+	private StudentService studentService;
 	
 	@PostMapping("/login")
-	public LoginResponse authenticate(@RequestBody User user) throws UserNotFoundException, InvalidPasswordException {
+	public LoginResponse authenticate(@RequestBody Student student) throws StudentNotFoundException, InvalidPasswordException {
 
-		User authUser = userService.findByEmail(user.getEmail());
+		Student authUser = studentService.findByEmail(student.getEmail());
 		
 		if(authUser == null) {
-			throw new UserNotFoundException("Usuario nao encontrado!");
+			throw new StudentNotFoundException("Usuario nao encontrado!");
 		}
 		
-		if(!authUser.getPassword().equals(user.getPassword())) {
+		if(!authUser.getPassword().equals(student.getPassword())) {
 			throw new InvalidPasswordException("Senha invalida!");
 		}
 		
@@ -57,6 +57,10 @@ public class LoginController {
 		
 		public LoginResponse(String token) {
 			this.token = token;
+		}
+		
+		String getToken() {
+			return this.token;
 		}
 	}
 	
