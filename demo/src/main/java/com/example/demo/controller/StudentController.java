@@ -3,7 +3,9 @@ package com.example.demo.controller;
 import java.util.Date;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +34,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  *
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/students")
 public class StudentController {
 
@@ -52,7 +55,8 @@ public class StudentController {
 	 * @param login user email and password
 	 * @return StudentDTO
 	 */
-	@GetMapping(value = "/login")
+	@CrossOrigin
+	@GetMapping(value = "/login", consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<StudentDTO> login(@RequestBody Login login) {
 		Student newUser = studentService.findByLogin(login.getEmail(), login.getPassword());
@@ -79,9 +83,11 @@ public class StudentController {
 	 * @param student Student
 	 * @return new StudentDTO
 	 */
-	@PostMapping(value = "/signup")
+	@CrossOrigin
+	@PostMapping(value = "/signup", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<StudentDTO> singup(@RequestBody Student student) {
+		System.out.println(student.getEmail());
 		Student newStudent = studentService.create(student);
 		final String TOKEN_KEY = "magicword";
 
@@ -104,7 +110,8 @@ public class StudentController {
 	 * @param email user email
 	 * @return HttpStatus
 	 */
-	@DeleteMapping(value = "/delete/{email}")
+	@CrossOrigin
+	@DeleteMapping(value = "/delete/{email}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity delete(@PathVariable String email) {
 		try {
 			studentService.delete(email);
@@ -120,7 +127,8 @@ public class StudentController {
 	 * @param student User to update
 	 * @return StudentDTO
 	 */
-	@PutMapping(value = "/")
+	@CrossOrigin
+	@PutMapping(value = "/", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<StudentDTO> update(@RequestBody Student student) {
 		try {
 			Student updated = studentService.update(student);

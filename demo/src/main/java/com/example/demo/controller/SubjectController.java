@@ -3,7 +3,9 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,7 @@ import com.example.demo.service.SubjectService;
  *
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping({ "/v1/subjects" })
 public class SubjectController {
 
@@ -45,7 +48,8 @@ public class SubjectController {
 	 * @param id Subject ID
 	 * @return Subject
 	 */
-	@GetMapping(value = "/{id}")
+	@CrossOrigin
+	@GetMapping(value = "/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Subject> findById(@PathVariable long id) {
 		Subject subject = subjectService.findById(id);
@@ -63,7 +67,8 @@ public class SubjectController {
 	 * @param name Subject name
 	 * @return Subject
 	 */
-	@GetMapping(value = "/name/{name}")
+	@CrossOrigin
+	@GetMapping(value = "/name/{name}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Subject> findByName(@PathVariable String name) {
 		Subject subject = subjectService.findByName(name);
@@ -81,7 +86,8 @@ public class SubjectController {
 	 * @param substring
 	 * @return Subject List
 	 */
-	@GetMapping(value = "/substring/{substring}")
+	@CrossOrigin
+	@GetMapping(value = "/substring/{substring}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<Subject>> findBySubstring(@PathVariable String substring) {
 		List<Subject> subjects = subjectService.findBySubstring(substring);
@@ -99,7 +105,8 @@ public class SubjectController {
 	 * @param subject
 	 * @return new Subject
 	 */
-	@PostMapping(value = "/create")
+	@CrossOrigin
+	@PostMapping(value = "/create", consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Subject> create(@RequestBody Subject subject) {
 		Subject newSubject = subjectService.create(subject);
@@ -117,7 +124,8 @@ public class SubjectController {
 	 * @param id Subject id number
 	 * @return HttpStatus
 	 */
-	@DeleteMapping(value = "/{id}")
+	@CrossOrigin
+	@DeleteMapping(value = "/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity delete(@PathVariable long id) {
 		try {
 			subjectService.delete(id);
@@ -133,7 +141,8 @@ public class SubjectController {
 	 * @param subject Subject to update
 	 * @return HttpStatus
 	 */
-	@PutMapping(value = "/")
+	@CrossOrigin
+	@PutMapping(value = "/", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> update(@RequestBody Subject subject) {
 		try {
 			Subject updated = subjectService.update(subject);
