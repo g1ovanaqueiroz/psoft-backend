@@ -6,15 +6,16 @@ import javax.persistence.Id;
 /**
  * 
  * This class represents an user object
+ * 
  * @author Giovana Brito Oliveira
  *
  */
 @Entity
 public class Student {
-	
+
 	@Id
 	private String email;
-	
+
 	private String firstName;
 	private String lastName;
 	private String password;
@@ -23,6 +24,14 @@ public class Student {
 
 	}
 
+	/**
+	 * Student constructor
+	 * 
+	 * @param firstName user first name
+	 * @param lastName  user last name
+	 * @param email     user email
+	 * @param password  user password
+	 */
 	public Student(String firstName, String lastName, String email, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -30,44 +39,76 @@ public class Student {
 		this.password = password;
 	}
 
-	// returns the users first name
+	/**
+	 * Return the user first name
+	 * 
+	 * @return string
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
-	// updates the users first name
+	/**
+	 * Updates the user first name
+	 * 
+	 * @param firstName user first name
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	// returns the users last name
+	/**
+	 * Return the user last name
+	 * 
+	 * @return user last name
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
-	// updates the users last name
+	/**
+	 * Updates the user last name
+	 * 
+	 * @param lastName user last name
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	// returns the users email
+	/**
+	 * Return the user email
+	 * 
+	 * @return user email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
-	// updates the users email
+	/**
+	 * Updates the user email
+	 * 
+	 * @param email user email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	//// returns the users password
+	/**
+	 * Return the user password
+	 * 
+	 * @return user password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
-	// updates the users password
+	/**
+	 * Updates the user password
+	 * 
+	 * @param password user password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 }
