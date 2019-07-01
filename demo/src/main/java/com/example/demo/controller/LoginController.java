@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import com.example.demo.exception.InvalidPasswordException;
  *
  */
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/v1/auth")
 public class LoginController {
 
@@ -41,7 +44,8 @@ public class LoginController {
 	 * @throws StudentNotFoundException
 	 * @throws InvalidPasswordException
 	 */
-	@PostMapping("/login")
+	@CrossOrigin
+	@PostMapping(value="/login", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public LoginResponse authenticate(@RequestBody Login login)
 			throws StudentNotFoundException, InvalidPasswordException {
 
