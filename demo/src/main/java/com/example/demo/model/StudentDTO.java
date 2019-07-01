@@ -11,9 +11,9 @@ public class StudentDTO {
 	/**
 	 * StudentDTO constructor
 	 * 
-	 * @param firstName    the user's first name
-	 * @param lastName     the user's last name
-	 * @param email        the user's email
+	 * @param firstName    the user first name
+	 * @param lastName     the user last name
+	 * @param email        the user email
 	 * @param confirmation token
 	 */
 	public StudentDTO(String firstName, String lastName, String email, String token) {
@@ -29,54 +29,54 @@ public class StudentDTO {
 	private String token;
 
 	/**
-	 * Returns the user's first name
+	 * Return the user first name
 	 * 
-	 * @return user's first name
+	 * @return user first name
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
 	/**
-	 * Updates the user's first name
+	 * Updates the user first name
 	 * 
-	 * @param firstName user's first name
+	 * @param firstName user first name
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
 	/**
-	 * Returns the user's last name
+	 * Return the user last name
 	 * 
-	 * @return user's last name
+	 * @return user last name
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 
 	/**
-	 * Updates the user's last name
+	 * Updates the user last name
 	 * 
-	 * @param firstName user's last name
+	 * @param firstName user last name
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
 	/**
-	 * Returns the user's email
+	 * Return the user email
 	 * 
-	 * @return user's email
+	 * @return user email
 	 */
 	public String getEmail() {
 		return email;
 	}
 
 	/**
-	 * Returns the user's token
+	 * Return the user token
 	 * 
-	 * @return user's token
+	 * @return user token
 	 */
 	public String getToken() {
 		return token;
