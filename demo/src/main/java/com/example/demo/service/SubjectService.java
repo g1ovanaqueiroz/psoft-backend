@@ -86,4 +86,8 @@ public class SubjectService {
 	public List<Subject> findBySubstring(String substring) {
 		return subjectDAO.findBySubstring(substring);
 	}
+	
+	public List<Subject> findAll() {
+		return subjectDAO.findAll();
+	}
 }

@@ -152,4 +152,14 @@ public class SubjectController {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	@CrossOrigin
+	@GetMapping(value = "/")
+	public ResponseEntity<List<Subject>> findAll() {
+		List<Subject> list = subjectService.findAll();
+		return new ResponseEntity<List<Subject>>(list, HttpStatus.OK);
+	}
 }
