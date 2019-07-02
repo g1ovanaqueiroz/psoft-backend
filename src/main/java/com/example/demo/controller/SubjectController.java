@@ -34,7 +34,6 @@ import com.example.demo.service.StudentService;
 public class SubjectController {
 
 	private SubjectService subjectService;
-	private StudentService studentService;
 
 	/**
 	 * SubjectController constructor
