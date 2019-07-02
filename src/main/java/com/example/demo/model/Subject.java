@@ -17,6 +17,7 @@ import javax.persistence.Id;
 public class Subject {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private String name;
@@ -33,9 +34,8 @@ public class Subject {
 	 * @param name  subject name
 	 * @param likes list of e-mails
 	 */
-	public Subject(String name, long id) {
+	public Subject(String name) {
 		this.name = name;
-		this.id = id;
 		this.likes = new HashSet<String>();
 		this.comments = new ArrayList<Comment>();
 	}
@@ -74,15 +74,6 @@ public class Subject {
 	 */
 	public String ToString() {
 		return this.getId() + " - " + this.getName();
-	}
-
-	/**
-	 * Return the quantity of likes
-	 * 
-	 * @return likes
-	 */
-	public int getQuantityOfLikes() {
-		return this.likes.size();
 	}
 
 	/**

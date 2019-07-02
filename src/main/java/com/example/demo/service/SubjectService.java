@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.StudentDAO;
 import com.example.demo.dao.SubjectDAO;
 import com.example.demo.exception.user.SubjectNotFoundException;
+import com.example.demo.model.Student;
 import com.example.demo.model.Subject;
 
 /**
@@ -83,11 +85,27 @@ public class SubjectService {
 		return subjectDAO.findByName(name);
 	}
 
+	/**
+	 * Find subjects that have this substring in their names
+	 * 
+	 * @param substring string
+	 * @return Subject List
+	 */
 	public List<Subject> findBySubstring(String substring) {
 		return subjectDAO.findBySubstring(substring);
 	}
-	
+
+	/**
+	 * Return all the Subjects
+	 * 
+	 * @return Subject List
+	 */
 	public List<Subject> findAll() {
 		return subjectDAO.findAll();
 	}
+
+	public void addLike(Subject subject, String email) {
+		subject.getLikes().add(email);
+	}
+
 }

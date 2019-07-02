@@ -52,4 +52,5 @@ public interface SubjectDAO<T, ID extends Serializable> extends JpaRepository<Su
 	List<Subject> findBySubstring(@Param("substring") String substring);
 	
 	List<Subject> findAll();
+
 }
