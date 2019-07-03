@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -66,6 +67,7 @@ public class CommentService {
 			throw new CommentNotFoundException("Comment not found!");
 		}
 		comment.setDeleted(true);
+		commentDAO.save(comment);
 	}
 
 	/**
@@ -116,5 +118,23 @@ public class CommentService {
 	 */
 	public List<Comment> findAnswers(long commentId) {
 		return commentDAO.findAnswers(commentId);
+	}
+
+	/**
+	 * Return all the not deleted comments
+	 * 
+	 * @return list of comments
+	 */
+	public List<Comment> findAllNotDeleted() {
+		List<Comment> allComments = commentDAO.findAll();
+		List<Comment> notDeleteds = new ArrayList<Comment>();
+
+		for (int i = 0; i < allComments.size(); i++) {
+			Comment comment = allComments.get(i);
+			if (!comment.isDeleted()) {
+				notDeleteds.add(comment);
+			}
+		}
+		return notDeleteds;
 	}
 }

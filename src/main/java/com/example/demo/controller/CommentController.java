@@ -172,4 +172,19 @@ public class CommentController {
 	public ResponseEntity<List<Comment>> findAll() {
 		return new ResponseEntity<List<Comment>>(commentService.findAll(), HttpStatus.OK);
 	}
+
+	/**
+	 * Return all the not deleted comments
+	 * 
+	 * @return list of comments
+	 */
+	@GetMapping(value = "/notDeleteds", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	public ResponseEntity<List<Comment>> findAllNotDeleted() {
+		try {
+			return new ResponseEntity<List<Comment>>(commentService.findAllNotDeleted(), HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+	}
 }
