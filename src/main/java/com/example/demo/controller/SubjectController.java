@@ -190,7 +190,8 @@ public class SubjectController {
 	@DeleteMapping(value = "/like")
 	public ResponseEntity<Subject> removeLike(@RequestBody Like like) {
 		try {
-			return new ResponseEntity<Subject>(subjectService.removeLike(like.getId(), like.getEmail()), HttpStatus.OK);
+			Subject subject = subjectService.removeLike(like.getId(), like.getEmail());
+			return new ResponseEntity<Subject>(subject, HttpStatus.OK);
 		} catch (Exception e) {
 			throw new InternalError("Something went wrong");
 		}
