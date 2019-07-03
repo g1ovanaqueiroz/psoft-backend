@@ -25,6 +25,7 @@ public class Comment {
 	String text;
 	String userEmail;
 	Calendar calendar;
+	boolean deleted;
 
 	/**
 	 * Empty comment constructor
@@ -46,6 +47,7 @@ public class Comment {
 		this.subjectReference = subjectReference;
 		this.calendar = Calendar.getInstance();
 		this.commentReference = 0;
+		this.deleted = false;
 	}
 
 	/**
@@ -62,6 +64,7 @@ public class Comment {
 		this.subjectReference = subjectReference;
 		this.commentReference = commentReference;
 		this.calendar = Calendar.getInstance();
+		this.deleted = false;
 	}
 
 	/**
@@ -116,5 +119,41 @@ public class Comment {
 	 */
 	public boolean isAnswer() {
 		return this.commentReference != 0;
+	}
+
+	/**
+	 * Return the Subject reference
+	 * 
+	 * @return long id
+	 */
+	public long getSubjectReference() {
+		return subjectReference;
+	}
+
+	/**
+	 * Return the Comment Reference
+	 * 
+	 * @return long id
+	 */
+	public long getCommentReference() {
+		return commentReference;
+	}
+
+	/**
+	 * Return a boolean indicating whether the comment is deleted
+	 * 
+	 * @return boolean
+	 */
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	/**
+	 * Updates the deletion indicator
+	 * 
+	 * @param deleted boolean
+	 */
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 }

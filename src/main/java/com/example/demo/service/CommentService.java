@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.CommentDAO;
@@ -47,18 +49,44 @@ public class CommentService {
 
 		Comment comment = commentDAO.findById(commentToUpdate.getId());
 		if (comment == null)
-			throw new CommentNotFoundException("Could not update. The product does not exist.");
+			throw new CommentNotFoundException("Could not update. The comment does not exist.");
 
 		return commentDAO.save(commentToUpdate);
 	}
 
 	/**
-	 * Delete a Comment from the Database
+	 * Turn a comment deleted
 	 * 
 	 * @param id Comment id
 	 */
 	public void delete(long id) {
-		commentDAO.deleteById(id);
+		Comment comment = commentDAO.findById(id);
+
+		if (comment == null) {
+			throw new CommentNotFoundException("Comment not found!");
+		}
+		comment.setDeleted(true);
+	}
+
+	/**
+	 * Return an integer indicating how many comments a particular subject has
+	 * 
+	 * @param id Subject Id
+	 * @return int
+	 */
+	public int countComment(long id) {
+		List<Comment> comments = commentDAO.subjectComments(id);
+		return comments.size();
+	}
+
+	/**
+	 * Return a list of all the comments of a particular subject
+	 * 
+	 * @param subjectId Subject Id
+	 * @return List of comments
+	 */
+	public List<Comment> subjectComments(long subjectId) {
+		return commentDAO.subjectComments(subjectId);
 	}
 
 	/**
@@ -69,5 +97,24 @@ public class CommentService {
 	 */
 	public Comment findById(long id) {
 		return commentDAO.findById(id);
+	}
+
+	/**
+	 * Return all the comments
+	 * 
+	 * @return List of comments
+	 */
+	public List<Comment> findAll() {
+		return commentDAO.findAll();
+	}
+
+	/**
+	 * Return a list of all the answers of a particular comment
+	 * 
+	 * @param commentId Comment id
+	 * @return List of comments
+	 */
+	public List<Comment> findAnswers(long commentId) {
+		return commentDAO.findAnswers(commentId);
 	}
 }

@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -112,4 +114,62 @@ public class CommentController {
 		}
 	}
 
+	/**
+	 * Return a list of all the answers of a particular comment
+	 * 
+	 * @param commentId Comment ID
+	 * @return List of comments
+	 */
+	@GetMapping(value = "/answers/{commentId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	public ResponseEntity<List<Comment>> findAnswers(@PathVariable long commentId) {
+		try {
+			return new ResponseEntity<List<Comment>>(commentService.findAnswers(commentId), HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+	}
+
+	/**
+	 * Return an integer indicating how many comments a particular subject has
+	 * 
+	 * @param subjectId Subject id
+	 * @return integer
+	 */
+	@GetMapping(value = "/count/{subjectId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	public ResponseEntity<Integer> countComment(@PathVariable long subjectId) {
+		try {
+			return new ResponseEntity<Integer>(commentService.countComment(subjectId), HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+	}
+
+	/**
+	 * Return a list of all the comments of a particular subject
+	 * 
+	 * @param subjectId Subject ID
+	 * @return list of comments
+	 */
+	@GetMapping(value = "/subject/{subjectId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	public ResponseEntity<List<Comment>> subjectComments(@PathVariable long subjectId) {
+		try {
+			return new ResponseEntity<List<Comment>>(commentService.subjectComments(subjectId), HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+	}
+
+	/**
+	 * Return all the comments
+	 * 
+	 * @return list of comments
+	 */
+	@GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	public ResponseEntity<List<Comment>> findAll() {
+		return new ResponseEntity<List<Comment>>(commentService.findAll(), HttpStatus.OK);
+	}
 }
