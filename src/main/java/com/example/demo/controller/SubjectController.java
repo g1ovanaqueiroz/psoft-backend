@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
-import javax.persistence.PostRemove;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +19,6 @@ import com.example.demo.exception.user.SubjectNotFoundException;
 import com.example.demo.model.Like;
 import com.example.demo.model.Subject;
 import com.example.demo.service.SubjectService;
-import com.example.demo.service.StudentService;
 
 /**
  * Subject Controller
@@ -184,6 +180,12 @@ public class SubjectController {
 		}
 	}
 
+	/**
+	 * This method remove a like in a subject
+	 * 
+	 * @param like like object
+	 * @return updated subject
+	 */
 	@CrossOrigin
 	@DeleteMapping(value = "/like")
 	public ResponseEntity<Subject> removeLike(@RequestBody Like like) {
@@ -193,4 +195,38 @@ public class SubjectController {
 			throw new InternalError("Something went wrong");
 		}
 	}
+
+	/**
+	 * This method return how many likes the subject has
+	 * 
+	 * @param id subject id
+	 * @return quantity of likes
+	 */
+	@CrossOrigin
+	@GetMapping(value = "/like")
+	public ResponseEntity<Integer> countLikes(@PathVariable long id) {
+		try {
+			return new ResponseEntity<Integer>(subjectService.countLikes(id), HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+	}
+
+	/**
+	 * Returns a Boolean indicating whether the user passed as a parameter has or
+	 * has not liked the subject
+	 * 
+	 * @param like object like
+	 * @return boolean
+	 */
+	@CrossOrigin
+	@GetMapping(value = "/like/itliked")
+	public ResponseEntity<Boolean> itLiked(@RequestBody Like like) {
+		try {
+			return new ResponseEntity<Boolean>(subjectService.itLiked(like.getId(), like.getEmail()), HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wwong");
+		}
+	}
+
 }

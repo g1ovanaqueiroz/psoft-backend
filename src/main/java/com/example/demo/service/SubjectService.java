@@ -136,4 +136,33 @@ public class SubjectService {
 		return subjectDAO.save(subject); // updates the subject on database
 	}
 
+	/**
+	 * Returns how many likes the subject has
+	 * 
+	 * @param id subject id
+	 * @return quantity of likes
+	 */
+	public int countLikes(long id) {
+		Subject subject = subjectDAO.findById(id);
+		if (subject == null) {
+			throw new SubjectNotFoundException("Subject not found!");
+		}
+		return subject.countLikes();
+	}
+
+	/**
+	 * Returns a Boolean indicating whether the user passed as a parameter has or
+	 * has not liked the subject
+	 * 
+	 * @param id    subject id
+	 * @param email user id
+	 * @return boolean
+	 */
+	public boolean itLiked(long id, String email) {
+		Subject subject = subjectDAO.findById(id);
+		if (subject == null) {
+			throw new SubjectNotFoundException("Subject not found!");
+		}
+		return subject.itLiked(email);
+	}
 }

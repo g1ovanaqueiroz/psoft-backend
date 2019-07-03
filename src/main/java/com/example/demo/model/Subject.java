@@ -25,8 +25,8 @@ public class Subject {
 	private long id;
 	@Column(name = "name")
 	private String name;
-	
-	@ElementCollection(targetClass=String.class)
+
+	@ElementCollection(targetClass = String.class)
 	private Set<String> likes;
 
 	public Subject() {
@@ -78,6 +78,15 @@ public class Subject {
 	 */
 	public String ToString() {
 		return this.getId() + " - " + this.getName();
+	}
+
+	/**
+	 * Returns how many likes the subject has
+	 * 
+	 * @return int - quantity of subjects
+	 */
+	public int countLikes() {
+		return this.likes.size();
 	}
 
 	/**
