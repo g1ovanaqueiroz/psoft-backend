@@ -49,7 +49,7 @@ public class SubjectController {
 	 * @return Subject
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Subject> findById(@PathVariable long id) {
 		Subject subject = subjectService.findById(id);
@@ -68,7 +68,7 @@ public class SubjectController {
 	 * @return Subject
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/name/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/name/{name}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Subject> findByName(@PathVariable String name) {
 		Subject subject = subjectService.findByName(name);
@@ -87,7 +87,7 @@ public class SubjectController {
 	 * @return Subject List
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/substring/{substring}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/substring/{substring}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<Subject>> findBySubstring(@PathVariable String substring) {
 		List<Subject> subjects = subjectService.findBySubstring(substring);
@@ -106,7 +106,7 @@ public class SubjectController {
 	 * @return new Subject
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Subject> create(@RequestBody Subject subject) {
 		Subject newSubject = subjectService.create(subject);
@@ -142,7 +142,7 @@ public class SubjectController {
 	 * @return HttpStatus
 	 */
 	@CrossOrigin
-	@PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> update(@RequestBody Subject subject) {
 		try {
 			Subject updated = subjectService.update(subject);
@@ -158,7 +158,7 @@ public class SubjectController {
 	 * @return Subject List
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/")
+	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Subject>> findAll() {
 		List<Subject> list = subjectService.findAll();
 		return new ResponseEntity<List<Subject>>(list, HttpStatus.OK);
@@ -171,7 +171,7 @@ public class SubjectController {
 	 * @return updated subject
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/like")
+	@PostMapping(value = "/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> addLike(@RequestBody Like like) {
 		try {
 			return new ResponseEntity<Subject>(subjectService.addLike(like.getId(), like.getEmail()), HttpStatus.OK);
@@ -187,7 +187,7 @@ public class SubjectController {
 	 * @return updated subject
 	 */
 	@CrossOrigin
-	@DeleteMapping(value = "/like")
+	@DeleteMapping(value = "/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> removeLike(@RequestBody Like like) {
 		try {
 			Subject subject = subjectService.removeLike(like.getId(), like.getEmail());
@@ -214,6 +214,18 @@ public class SubjectController {
 	}
 
 	/**
+	 * Ranking subjects by likes
+	 * 
+	 * @return List of Subjects
+	 */
+	@GetMapping(value = "/ranking/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	public ResponseEntity<List<Subject>> rankingByLike() {
+		List<Subject> sortedList = subjectService.sortByLikes();
+		return new ResponseEntity<List<Subject>>(sortedList, HttpStatus.OK);
+	}
+
+	/**
 	 * Returns a Boolean indicating whether the user passed as a parameter has or
 	 * has not liked the subject
 	 * 
@@ -221,7 +233,7 @@ public class SubjectController {
 	 * @return boolean
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/like/itliked")
+	@GetMapping(value = "/like/itliked", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> itLiked(@RequestBody Like like) {
 		try {
 			return new ResponseEntity<Boolean>(subjectService.itLiked(like.getId(), like.getEmail()), HttpStatus.OK);

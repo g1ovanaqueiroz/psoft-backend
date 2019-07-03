@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -164,5 +166,81 @@ public class SubjectService {
 			throw new SubjectNotFoundException("Subject not found!");
 		}
 		return subject.itLiked(email);
+	}
+
+	/**
+	 * Ranking subjects by likes
+	 * 
+	 * @return List of subjects
+	 */
+	public List<Subject> sortByLikes() {
+		List<Subject> list = subjectDAO.findAll();
+		Subject[] subjects = this.convertList(list);
+		quickSort(subjects, 0, subjects.length - 1);
+		List<Subject> sorted = new ArrayList();
+		for (int i = subjects.length - 1; i >= 0; i--) {
+			sorted.add(subjects[i]);
+		}
+		return sorted;
+	}
+	
+	/**
+	 * Convert a List in Array
+	 * 
+	 * @param list List to convert
+	 * @return array of subjects
+	 */
+	public Subject[] convertList(List<Subject> list) {
+		Subject[] array = new Subject[list.size()];
+
+		for (int i = 0; i < list.size(); i++) {
+			array[i] = list.get(i);
+		}
+		return array;
+	}
+
+	/**
+	 * Sorting algorithm
+	 * 
+	 * @param arr   array to be sorted
+	 * @param begin first index
+	 * @param end   last index
+	 */
+	public void quickSort(Subject arr[], int begin, int end) {
+		if (begin < end) {
+			int partitionIndex = partition(arr, begin, end);
+
+			quickSort(arr, begin, partitionIndex - 1);
+			quickSort(arr, partitionIndex + 1, end);
+		}
+	}
+
+	/**
+	 * Quicksort Partition Method
+	 * 
+	 * @param arr   array to be sorted
+	 * @param begin first index
+	 * @param end   last index
+	 * @return
+	 */
+	private int partition(Subject[] arr, int begin, int end) {
+		Subject pivot = arr[end];
+		int i = (begin - 1);
+
+		for (int j = begin; j < end; j++) {
+			if (arr[j].countLikes() <= pivot.countLikes()) {
+				i++;
+
+				Subject swapTemp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = swapTemp;
+			}
+		}
+
+		Subject swapTemp = arr[i + 1];
+		arr[i + 1] = arr[end];
+		arr[end] = swapTemp;
+
+		return i + 1;
 	}
 }
