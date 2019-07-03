@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.persistence.PostRemove;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -164,5 +166,31 @@ public class SubjectController {
 	public ResponseEntity<List<Subject>> findAll() {
 		List<Subject> list = subjectService.findAll();
 		return new ResponseEntity<List<Subject>>(list, HttpStatus.OK);
+	}
+
+	/**
+	 * This method add a like in a subject
+	 * 
+	 * @param like like object
+	 * @return updated subject
+	 */
+	@CrossOrigin
+	@PostMapping(value = "/like")
+	public ResponseEntity<Subject> addLike(@RequestBody Like like) {
+		try {
+			return new ResponseEntity<Subject>(subjectService.addLike(like.getId(), like.getEmail()), HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+	}
+
+	@CrossOrigin
+	@DeleteMapping(value = "/like")
+	public ResponseEntity<Subject> removeLike(@RequestBody Like like) {
+		try {
+			return new ResponseEntity<Subject>(subjectService.removeLike(like.getId(), like.getEmail()), HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
 	}
 }

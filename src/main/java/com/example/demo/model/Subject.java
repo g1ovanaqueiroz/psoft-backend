@@ -2,6 +2,10 @@ package com.example.demo.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +23,14 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
+	@Column(name = "name")
 	private String name;
-	private HashSet<String> likes;
-	private ArrayList<Comment> comments;
+	
+	@ElementCollection(targetClass=String.class)
+	private Set<String> likes;
 
 	public Subject() {
-
+		this.likes = new HashSet<String>();
 	}
 
 	/**
@@ -37,7 +42,6 @@ public class Subject {
 	public Subject(String name) {
 		this.name = name;
 		this.likes = new HashSet<String>();
-		this.comments = new ArrayList<Comment>();
 	}
 
 	/**
@@ -81,7 +85,7 @@ public class Subject {
 	 * 
 	 * @return likes
 	 */
-	public HashSet<String> getLikes() {
+	public Set<String> getLikes() {
 		return this.likes;
 	}
 
@@ -114,14 +118,4 @@ public class Subject {
 		return this.likes.contains(email);
 	}
 
-	/**
-	 * Add a comment
-	 * 
-	 * @param text  comment text
-	 * @param email user email
-	 */
-	public void addComment(String text, String email) {
-		Comment comment = new Comment(text, email);
-		comments.add(comment);
-	}
 }

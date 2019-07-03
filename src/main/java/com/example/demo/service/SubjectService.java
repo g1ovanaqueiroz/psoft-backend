@@ -104,8 +104,36 @@ public class SubjectService {
 		return subjectDAO.findAll();
 	}
 
-	public void addLike(Subject subject, String email) {
-		subject.getLikes().add(email);
+	/**
+	 * Add a like in a subject
+	 * 
+	 * @param id    subject id
+	 * @param email user email
+	 * @return updated Subject
+	 */
+	public Subject addLike(long id, String email) {
+		Subject subject = subjectDAO.findById(id);
+		if (subject == null) {
+			throw new SubjectNotFoundException("Subject not found!");
+		}
+		subject.addLike(email);
+		return subjectDAO.save(subject); // updates the subject on database
+	}
+
+	/**
+	 * Remove a like in a subject
+	 * 
+	 * @param id    subject id
+	 * @param email user email
+	 * @return updated subject
+	 */
+	public Subject removeLike(long id, String email) {
+		Subject subject = subjectDAO.findById(id);
+		if (subject == null) {
+			throw new SubjectNotFoundException("Subject not found!");
+		}
+		subject.removeLike(email);
+		return subjectDAO.save(subject); // updates the subject on database
 	}
 
 }
