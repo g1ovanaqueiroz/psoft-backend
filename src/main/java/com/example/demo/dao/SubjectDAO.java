@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.model.Subject;
 
 /**
+ * Subject repository
  * 
  * @author Giovana Brito Oliveira
  *
@@ -50,7 +51,10 @@ public interface SubjectDAO<T, ID extends Serializable> extends JpaRepository<Su
 	 */
 	@Query(value = "Select s FROM Subject s WHERE s.name LIKE concat('%',:substring,'%')")
 	List<Subject> findBySubstring(@Param("substring") String substring);
-	
+
+	/**
+	 * return a list of all the subjects
+	 */
 	List<Subject> findAll();
 
 }

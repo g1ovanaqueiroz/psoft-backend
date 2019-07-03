@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.model.Student;
 
 /**
+ * Student repository
  * 
  * @author Giovana Brito Oliveira
  *

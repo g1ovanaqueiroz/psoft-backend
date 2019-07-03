@@ -56,7 +56,7 @@ public class StudentController {
 	 * @return StudentDTO
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/login", consumes=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<StudentDTO> login(@RequestBody Login login) {
 		Student newUser = studentService.findByLogin(login.getEmail(), login.getPassword());
@@ -84,7 +84,7 @@ public class StudentController {
 	 * @return new StudentDTO
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/signup", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<StudentDTO> singup(@RequestBody Student student) {
 		System.out.println(student.getEmail());
@@ -111,7 +111,7 @@ public class StudentController {
 	 * @return HttpStatus
 	 */
 	@CrossOrigin
-	@DeleteMapping(value = "/delete/{email}", consumes=MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "/delete/{email}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity delete(@PathVariable String email) {
 		try {
 			studentService.delete(email);
@@ -128,7 +128,7 @@ public class StudentController {
 	 * @return StudentDTO
 	 */
 	@CrossOrigin
-	@PutMapping(value = "/", consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<StudentDTO> update(@RequestBody Student student) {
 		try {
 			Student updated = studentService.update(student);

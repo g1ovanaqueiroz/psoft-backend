@@ -20,33 +20,48 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	long subjectReference;
+	long commentReference;
 	String text;
 	String userEmail;
 	Calendar calendar;
 
+	/**
+	 * Empty comment constructor
+	 */
 	public Comment() {
 
 	}
 
 	/**
-	 * Comment constructor
+	 * Simple comment constructor
 	 * 
-	 * @param text      comment text
-	 * @param userEmail user email
+	 * @param text             comment text
+	 * @param userEmail        user email
+	 * @param subjectReference subject reference
 	 */
-	public Comment(String text, String userEmail) {
+	public Comment(String text, String userEmail, long subjectReference) {
 		this.text = text;
 		this.userEmail = userEmail;
+		this.subjectReference = subjectReference;
 		this.calendar = Calendar.getInstance();
+		this.commentReference = 0;
 	}
 
 	/**
-	 * Return a boolean indicating whether this comment is or is not null
+	 * Answer comment constructor
 	 * 
-	 * @return boolean
+	 * @param text             comment text
+	 * @param userEmail
+	 * @param subjectReference
+	 * @param commentReference
 	 */
-	public boolean isNIL() {
-		return this.userEmail == null;
+	public Comment(String text, String userEmail, long subjectReference, long commentReference) {
+		this.text = text;
+		this.userEmail = userEmail;
+		this.subjectReference = subjectReference;
+		this.commentReference = commentReference;
+		this.calendar = Calendar.getInstance();
 	}
 
 	/**
@@ -77,15 +92,6 @@ public class Comment {
 	}
 
 	/**
-	 * Update the user email
-	 * 
-	 * @param userEmail email
-	 */
-	private void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	/**
 	 * Return the comment date
 	 * 
 	 * @return date
@@ -103,4 +109,12 @@ public class Comment {
 		return this.id;
 	}
 
+	/**
+	 * Returns a boolean indicating whether the comment is an answer
+	 * 
+	 * @return boolean
+	 */
+	public boolean isAnswer() {
+		return this.commentReference != 0;
+	}
 }
