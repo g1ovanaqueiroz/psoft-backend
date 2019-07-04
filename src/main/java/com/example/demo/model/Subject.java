@@ -74,7 +74,7 @@ public class Subject {
 	 * 
 	 * @return toString
 	 */
-	public String ToString() {
+	public String toString() {
 		return this.getId() + " - " + this.getName();
 	}
 

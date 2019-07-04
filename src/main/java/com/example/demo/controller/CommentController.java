@@ -187,4 +187,16 @@ public class CommentController {
 			throw new InternalError("Something went wrong");
 		}
 	}
+
+	/**
+	 * Return how many comments a particular subject has
+	 * 
+	 * @param id subject id
+	 * @return int
+	 */
+	@GetMapping(value = "/count/{id}")
+	@CrossOrigin
+	public ResponseEntity<Integer> countComments(@PathVariable long id) {
+		return new ResponseEntity<Integer>(commentService.countComment(id), HttpStatus.OK);
+	}
 }

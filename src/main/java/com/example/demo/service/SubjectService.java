@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.CommentDAO;
 import com.example.demo.dao.StudentDAO;
 import com.example.demo.dao.SubjectDAO;
 import com.example.demo.exception.user.SubjectNotFoundException;
 import com.example.demo.model.Student;
 import com.example.demo.model.Subject;
+import com.example.demo.model.SubjectDTO;
 
 /**
  * Offers services to Controller
@@ -21,6 +25,9 @@ import com.example.demo.model.Subject;
 @Service
 public class SubjectService {
 
+	@Autowired
+	private final CommentDAO commentDAO;
+
 	private final SubjectDAO subjectDAO;
 
 	/**
@@ -28,8 +35,9 @@ public class SubjectService {
 	 * 
 	 * @param subjectDAO SubjectDAO
 	 */
-	SubjectService(SubjectDAO subjectDAO) {
+	SubjectService(SubjectDAO subjectDAO, CommentDAO commentDAO) {
 		this.subjectDAO = subjectDAO;
+		this.commentDAO = commentDAO;
 	}
 
 	/**
@@ -173,17 +181,33 @@ public class SubjectService {
 	 * 
 	 * @return List of subjects
 	 */
-	public List<Subject> sortByLikes() {
+	public List<SubjectDTO> sortByLikes() {
 		List<Subject> list = subjectDAO.findAll();
 		Subject[] subjects = this.convertList(list);
-		quickSort(subjects, 0, subjects.length - 1);
-		List<Subject> sorted = new ArrayList();
+		likeQuickSort(subjects, 0, subjects.length - 1);
+		List<SubjectDTO> sorted = new ArrayList<SubjectDTO>();
 		for (int i = subjects.length - 1; i >= 0; i--) {
-			sorted.add(subjects[i]);
+			sorted.add(new SubjectDTO(subjects[i].toString(), subjects[i].countLikes()));
 		}
 		return sorted;
 	}
-	
+
+	/**
+	 * Ranking subjects by comments
+	 * 
+	 * @return List of subjects
+	 */
+	public List<SubjectDTO> sortByComments() {
+		List<Subject> list = subjectDAO.findAll();
+		Subject[] subjects = this.convertList(list);
+		commentQuickSort(subjects, 0, subjects.length - 1);
+		List<SubjectDTO> sorted = new ArrayList<SubjectDTO>();
+		for (int i = subjects.length - 1; i >= 0; i--) {
+			sorted.add(new SubjectDTO(subjects[i].toString(), this.countComment(subjects[i])));
+		}
+		return sorted;
+	}
+
 	/**
 	 * Convert a List in Array
 	 * 
@@ -206,12 +230,28 @@ public class SubjectService {
 	 * @param begin first index
 	 * @param end   last index
 	 */
-	public void quickSort(Subject arr[], int begin, int end) {
+	public void likeQuickSort(Subject arr[], int begin, int end) {
 		if (begin < end) {
-			int partitionIndex = partition(arr, begin, end);
+			int partitionIndex = likePartition(arr, begin, end);
 
-			quickSort(arr, begin, partitionIndex - 1);
-			quickSort(arr, partitionIndex + 1, end);
+			likeQuickSort(arr, begin, partitionIndex - 1);
+			likeQuickSort(arr, partitionIndex + 1, end);
+		}
+	}
+
+	/**
+	 * Sorting algorithm
+	 * 
+	 * @param arr   array to be sorted
+	 * @param begin first index
+	 * @param end   last index
+	 */
+	public void commentQuickSort(Subject arr[], int begin, int end) {
+		if (begin < end) {
+			int partitionIndex = commentPartition(arr, begin, end);
+
+			commentQuickSort(arr, begin, partitionIndex - 1);
+			commentQuickSort(arr, partitionIndex + 1, end);
 		}
 	}
 
@@ -223,7 +263,36 @@ public class SubjectService {
 	 * @param end   last index
 	 * @return
 	 */
-	private int partition(Subject[] arr, int begin, int end) {
+	private int commentPartition(Subject[] arr, int begin, int end) {
+		Subject pivot = arr[end];
+		int i = (begin - 1);
+
+		for (int j = begin; j < end; j++) {
+			if (this.countComment(arr[j]) <= this.countComment(pivot)) {
+				i++;
+
+				Subject swapTemp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = swapTemp;
+			}
+		}
+
+		Subject swapTemp = arr[i + 1];
+		arr[i + 1] = arr[end];
+		arr[end] = swapTemp;
+
+		return i + 1;
+	}
+
+	/**
+	 * Quicksort Partition Method
+	 * 
+	 * @param arr   array to be sorted
+	 * @param begin first index
+	 * @param end   last index
+	 * @return
+	 */
+	private int likePartition(Subject[] arr, int begin, int end) {
 		Subject pivot = arr[end];
 		int i = (begin - 1);
 
@@ -242,5 +311,16 @@ public class SubjectService {
 		arr[end] = swapTemp;
 
 		return i + 1;
+	}
+
+	/**
+	 * 
+	 * Return how many comments a particular comment has
+	 * 
+	 * @param subject
+	 * @return quantity of comments
+	 */
+	public int countComment(Subject subject) {
+		return commentDAO.subjectComments(subject.getId()).size();
 	}
 }

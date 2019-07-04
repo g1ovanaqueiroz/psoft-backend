@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.exception.user.SubjectNotFoundException;
 import com.example.demo.model.Like;
 import com.example.demo.model.Subject;
+import com.example.demo.model.SubjectDTO;
 import com.example.demo.service.SubjectService;
 
 /**
@@ -220,9 +221,21 @@ public class SubjectController {
 	 */
 	@GetMapping(value = "/ranking/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
-	public ResponseEntity<List<Subject>> rankingByLike() {
-		List<Subject> sortedList = subjectService.sortByLikes();
-		return new ResponseEntity<List<Subject>>(sortedList, HttpStatus.OK);
+	public ResponseEntity<List<SubjectDTO>> rankingByLike() {
+		List<SubjectDTO> sortedList = subjectService.sortByLikes();
+		return new ResponseEntity<List<SubjectDTO>>(sortedList, HttpStatus.OK);
+	}
+
+	/**
+	 * Ranking subjects by comments
+	 * 
+	 * @return List of Subjects
+	 */
+	@GetMapping(value = "/ranking/comment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	public ResponseEntity<List<SubjectDTO>> rankingByComment() {
+		List<SubjectDTO> sortedList = subjectService.sortByComments();
+		return new ResponseEntity<List<SubjectDTO>>(sortedList, HttpStatus.OK);
 	}
 
 	/**
