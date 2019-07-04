@@ -6,6 +6,8 @@ import com.example.demo.dao.StudentDAO;
 import com.example.demo.exception.user.StudentNotFoundException;
 import com.example.demo.model.Student;
 
+import sendEmail.SpringEmailController;
+
 /**
  * 
  * Offers some services to the controller
@@ -17,6 +19,7 @@ import com.example.demo.model.Student;
 public class StudentService {
 
 	private final StudentDAO studentDAO;
+	private SpringEmailController mail;
 
 	/**
 	 * StudentService constructor
@@ -25,6 +28,7 @@ public class StudentService {
 	 */
 	StudentService(StudentDAO studentDAO) {
 		this.studentDAO = studentDAO;
+		this.mail = new SpringEmailController();
 	}
 
 	/**
@@ -34,6 +38,7 @@ public class StudentService {
 	 * @return new Student
 	 */
 	public Student create(Student student) {
+		mail.sendWellcomeEmail(student.getEmail());
 		return studentDAO.save(student);
 	}
 
