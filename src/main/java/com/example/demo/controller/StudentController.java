@@ -71,7 +71,7 @@ public class StudentController {
 		}
 
 		String token = Jwts.builder().setSubject(newUser.getEmail()).signWith(SignatureAlgorithm.HS512, TOKEN_KEY)
-				.setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000)).compact();
+				.setExpiration(new Date(System.currentTimeMillis() + 1800000)).compact();
 
 		StudentDTO userDTO = new StudentDTO(newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), token);
 		return new ResponseEntity<StudentDTO>(userDTO, HttpStatus.FOUND);
@@ -96,7 +96,7 @@ public class StudentController {
 		}
 
 		String token = Jwts.builder().setSubject(newStudent.getEmail()).signWith(SignatureAlgorithm.HS512, TOKEN_KEY)
-				.setExpiration(new Date(System.currentTimeMillis() + 1 * 60 * 1000)).compact();
+				.setExpiration(new Date(System.currentTimeMillis() + 1800000)).compact();
 
 		StudentDTO studentDTO = new StudentDTO(student.getFirstName(), student.getLastName(), student.getEmail(),
 				token);
