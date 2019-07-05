@@ -19,7 +19,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
   public Docket greetingApi() {
     return new Docket(DocumentationType.SWAGGER_2)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.example.swaggerready"))
+        .apis(RequestHandlerSelectors.basePackage("com.example.demo"))
         .build()
         .apiInfo(metaData());
 
@@ -28,7 +28,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
   private ApiInfo metaData() {
     return new ApiInfoBuilder()
         .title("Spring Boot REST API")
-        .description("\"Spring Boot REST API for greeting people\"")
+        .description("\"UCDb Spring boot REST API\"")
         .version("1.0.0")
         .license("Apache License Version 2.0")
         .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
