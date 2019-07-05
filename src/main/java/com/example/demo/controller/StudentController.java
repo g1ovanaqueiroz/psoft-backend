@@ -60,7 +60,7 @@ public class StudentController {
 	 */
 	@ApiOperation(value = "Returns the token of an existing user")
 	@CrossOrigin
-	@GetMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<StudentDTO> login(@RequestBody Login login) {
 		Student newUser = studentService.findByLogin(login.getEmail(), login.getPassword());
