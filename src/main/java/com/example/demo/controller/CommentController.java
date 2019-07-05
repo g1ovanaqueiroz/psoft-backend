@@ -67,7 +67,7 @@ public class CommentController {
 	 * @param comment Comment
 	 * @return new created comment
 	 */
-	@PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	@ResponseBody
 	public ResponseEntity<Comment> create(@RequestBody Comment comment) {
