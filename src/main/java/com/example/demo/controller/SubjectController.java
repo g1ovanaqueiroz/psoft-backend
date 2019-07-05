@@ -21,16 +21,12 @@ import com.example.demo.model.Subject;
 import com.example.demo.model.SubjectDTO;
 import com.example.demo.service.SubjectService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
 /**
  * Subject Controller
  * 
  * @author Giovana Brito Oliveira
  *
  */
-@Api
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping({ "/v1/subjects" })
@@ -53,7 +49,6 @@ public class SubjectController {
 	 * @param id Subject ID
 	 * @return Subject
 	 */
-	@ApiOperation(value = "Finds a Subject through his ID Number")
 	@CrossOrigin
 	@GetMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -73,7 +68,6 @@ public class SubjectController {
 	 * @param name Subject name
 	 * @return Subject
 	 */
-	@ApiOperation(value = "Finds a Subject through his name")
 	@CrossOrigin
 	@GetMapping(value = "/name/{name}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -93,7 +87,6 @@ public class SubjectController {
 	 * @param substring
 	 * @return Subject List
 	 */
-	@ApiOperation(value = "Finds the Subjects that have this substring in their names")
 	@CrossOrigin
 	@GetMapping(value = "/substring/{substring}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -113,7 +106,6 @@ public class SubjectController {
 	 * @param subject
 	 * @return new Subject
 	 */
-	@ApiOperation(value = "Creates a new Subject")
 	@CrossOrigin
 	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -133,7 +125,6 @@ public class SubjectController {
 	 * @param id Subject id number
 	 * @return HttpStatus
 	 */
-	@ApiOperation(value = "Deletes a Subject through his id number")
 	@CrossOrigin
 	@DeleteMapping(value = "/delete/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity delete(@PathVariable long id) {
@@ -151,7 +142,6 @@ public class SubjectController {
 	 * @param subject Subject to update
 	 * @return HttpStatus
 	 */
-	@ApiOperation(value = "Updates a Subject")
 	@CrossOrigin
 	@PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> update(@RequestBody Subject subject) {
@@ -168,7 +158,6 @@ public class SubjectController {
 	 * 
 	 * @return Subject List
 	 */
-	@ApiOperation(value = "Return all the Subjects")
 	@CrossOrigin
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Subject>> findAll() {
@@ -182,7 +171,6 @@ public class SubjectController {
 	 * @param like like object
 	 * @return updated subject
 	 */
-	@ApiOperation(value = "This method add a like in a subject")
 	@CrossOrigin
 	@PostMapping(value = "/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> addLike(@RequestBody Like like) {
@@ -199,7 +187,6 @@ public class SubjectController {
 	 * @param like like object
 	 * @return updated subject
 	 */
-	@ApiOperation(value = "This method remove a like from a subject")
 	@CrossOrigin
 	@DeleteMapping(value = "/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> removeLike(@RequestBody Like like) {
@@ -217,7 +204,6 @@ public class SubjectController {
 	 * @param id subject id
 	 * @return quantity of likes
 	 */
-	@ApiOperation(value = "This method return how many likes the subject has")
 	@CrossOrigin
 	@GetMapping(value = "/like")
 	public ResponseEntity<Integer> countLikes(@PathVariable long id) {
@@ -233,7 +219,6 @@ public class SubjectController {
 	 * 
 	 * @return List of Subjects
 	 */
-	@ApiOperation(value = "Ranking subjects by likes")
 	@GetMapping(value = "/ranking/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity<List<SubjectDTO>> rankingByLike() {
@@ -246,7 +231,6 @@ public class SubjectController {
 	 * 
 	 * @return List of Subjects
 	 */
-	@ApiOperation(value = "Ranking subjects by comments")
 	@GetMapping(value = "/ranking/comment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity<List<SubjectDTO>> rankingByComment() {
@@ -261,7 +245,6 @@ public class SubjectController {
 	 * @param like object like
 	 * @return boolean
 	 */
-	@ApiOperation(value = "Returns a Boolean indicating whether the user passed as a parameter has or has not liked the subject")
 	@CrossOrigin
 	@GetMapping(value = "/like/itliked", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> itLiked(@RequestBody Like like) {
