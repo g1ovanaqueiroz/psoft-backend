@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.exception.user.StudentNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 import com.example.demo.model.Login;
 import com.example.demo.model.Student;
@@ -26,6 +28,7 @@ import com.example.demo.exception.InvalidPasswordException;
  * @author giovana Brito Oliveira
  *
  */
+@Api
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/v1/auth")
@@ -44,6 +47,7 @@ public class LoginController {
 	 * @throws StudentNotFoundException
 	 * @throws InvalidPasswordException
 	 */
+	@ApiOperation(value = "makes the login authentication")
 	@CrossOrigin
 	@PostMapping(value="/login", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public LoginResponse authenticate(@RequestBody Login login)

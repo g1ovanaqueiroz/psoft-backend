@@ -20,12 +20,16 @@ import com.example.demo.exception.user.CommentNotFoundException;
 import com.example.demo.model.Comment;
 import com.example.demo.service.CommentService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * Represents a comment
  * 
  * @author Giovana Brito Oliveira
  *
  */
+@Api
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping({ "/v1/comments" })
@@ -48,6 +52,7 @@ public class CommentController {
 	 * @param id comment id
 	 * @return long id
 	 */
+	@ApiOperation(value = "Finds a comment through his id")
 	@GetMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	@ResponseBody
@@ -67,6 +72,7 @@ public class CommentController {
 	 * @param comment Comment
 	 * @return new created comment
 	 */
+	@ApiOperation(value = "Create a Comment on Database")
 	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	@ResponseBody
@@ -81,11 +87,12 @@ public class CommentController {
 	}
 
 	/**
-	 * Deletes a comment on database
+	 * Deletes a comment from database
 	 * 
 	 * @param id comment id
 	 * @return HttpStatus
 	 */
+	@ApiOperation(value = "Deletes a comment from database")
 	@DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity delete(@PathVariable long id) {
@@ -103,6 +110,7 @@ public class CommentController {
 	 * @param comment Comment
 	 * @return updated comment
 	 */
+	@ApiOperation(value = "Updates a comment from database")
 	@PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity<Comment> update(@RequestBody Comment comment) {
@@ -120,6 +128,7 @@ public class CommentController {
 	 * @param commentId Comment ID
 	 * @return List of comments
 	 */
+	@ApiOperation(value = "Return a list of all the answers of a particular comment")
 	@GetMapping(value = "/answers/{commentId}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity<List<Comment>> findAnswers(@PathVariable long commentId) {
@@ -136,6 +145,7 @@ public class CommentController {
 	 * @param subjectId Subject id
 	 * @return integer
 	 */
+	@ApiOperation(value = "Return an integer indicating how many comments a particular subject has")
 	@GetMapping(value = "/count/{subjectId}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity<Integer> countComment(@PathVariable long subjectId) {
@@ -152,6 +162,7 @@ public class CommentController {
 	 * @param subjectId Subject ID
 	 * @return list of comments
 	 */
+	@ApiOperation(value = "Return a list of all the comments of a particular subject")
 	@GetMapping(value = "/subject/{subjectId}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity<List<Comment>> subjectComments(@PathVariable long subjectId) {
@@ -167,6 +178,7 @@ public class CommentController {
 	 * 
 	 * @return list of comments
 	 */
+	@ApiOperation(value = "Return all the comments")
 	@GetMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity<List<Comment>> findAll() {
@@ -178,6 +190,7 @@ public class CommentController {
 	 * 
 	 * @return list of comments
 	 */
+	@ApiOperation(value = "Return all the not deleted comments")
 	@GetMapping(value = "/notDeleteds", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public ResponseEntity<List<Comment>> findAllNotDeleted() {

@@ -12,7 +12,7 @@ public class Login {
 	private String password;
 
 	/**
-	 * Login contructor
+	 * Login constructor
 	 * 
 	 * @param email    user email
 	 * @param password user password
