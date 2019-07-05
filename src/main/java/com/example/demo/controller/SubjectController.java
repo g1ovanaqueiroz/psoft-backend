@@ -119,7 +119,7 @@ public class SubjectController {
 		return new ResponseEntity<Subject>(newSubject, HttpStatus.CREATED);
 	}
 
-	/**
+	/**	
 	 * Deletes a Subject through his id number
 	 * 
 	 * @param id Subject id number
