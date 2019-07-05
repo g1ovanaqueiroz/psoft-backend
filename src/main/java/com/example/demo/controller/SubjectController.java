@@ -126,7 +126,7 @@ public class SubjectController {
 	 * @return HttpStatus
 	 */
 	@CrossOrigin
-	@DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "/delete/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity delete(@PathVariable long id) {
 		try {
 			subjectService.delete(id);
@@ -143,7 +143,7 @@ public class SubjectController {
 	 * @return HttpStatus
 	 */
 	@CrossOrigin
-	@PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> update(@RequestBody Subject subject) {
 		try {
 			Subject updated = subjectService.update(subject);

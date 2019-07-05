@@ -128,7 +128,7 @@ public class StudentController {
 	 * @return StudentDTO
 	 */
 	@CrossOrigin
-	@PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<StudentDTO> update(@RequestBody Student student) {
 		try {
 			Student updated = studentService.update(student);

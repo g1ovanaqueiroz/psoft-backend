@@ -20,7 +20,5 @@ public class SpringEmailController {
 				"Olá! Seja bem vindo ao Classifica CC! \nObrigado por se cadastrar, aproveite a estadia. \n\n\nAtt, equipe UCDb"));
 
 		applicationContext.close();
-
-		System.out.println("Fim!");
 	}
 }

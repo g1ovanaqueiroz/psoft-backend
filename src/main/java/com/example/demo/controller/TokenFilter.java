@@ -32,10 +32,11 @@ public class TokenFilter extends GenericFilterBean {
 			throw new ServletException("Token inexistente ou mal formatado!");
 		}
 		
+		// extracting only the token from the header
 		String token = header.substring(7);
 		
 		try {
-			Jwts.parser().setSigningKey("banana").parseClaimsJws(token).getBody();
+			Jwts.parser().setSigningKey("magicword").parseClaimsJws(token).getBody();
 		}catch(SignatureException e) {
 			throw new ServletException("Token invalido ou expirado!");
 		}
