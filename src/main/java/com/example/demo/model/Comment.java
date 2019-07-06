@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
-import java.util.Calendar;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +20,14 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	long subjectReference;
-	long commentReference;
-	String text;
-	String userEmail;
-	Calendar calendar;
-	boolean deleted;
+	private long subjectReference;
+	private long commentReference;
+	private String text;
+	private String userEmail;
+	private Date date;
+	private String commentDate;
+	private String commentHour;
+	private boolean deleted;
 
 	/**
 	 * Empty comment constructor
@@ -45,9 +47,11 @@ public class Comment {
 		this.text = text;
 		this.userEmail = userEmail;
 		this.subjectReference = subjectReference;
-		this.calendar = Calendar.getInstance();
 		this.commentReference = 0;
 		this.deleted = false;
+		this.date = new Date();
+		this.commentDate = new SimpleDateFormat("dd/MM/yyyy").format(this.date);
+		this.commentHour = new SimpleDateFormat("HH:mm:ss").format(this.date);
 	}
 
 	/**
@@ -63,8 +67,10 @@ public class Comment {
 		this.userEmail = userEmail;
 		this.subjectReference = subjectReference;
 		this.commentReference = commentReference;
-		this.calendar = Calendar.getInstance();
 		this.deleted = false;
+		this.date = new Date();
+		this.commentDate = new SimpleDateFormat("dd/MM/yyyy").format(this.date);
+		this.commentHour = new SimpleDateFormat("HH:mm:ss").format(this.date);
 	}
 
 	/**
@@ -92,15 +98,6 @@ public class Comment {
 	 */
 	public String getUserEmail() {
 		return userEmail;
-	}
-
-	/**
-	 * Return the comment date
-	 * 
-	 * @return date
-	 */
-	public Calendar getCalendar() {
-		return calendar;
 	}
 
 	/**
@@ -155,5 +152,23 @@ public class Comment {
 	 */
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	/**
+	 * Returns the comment date
+	 * 
+	 * @return string date
+	 */
+	public String getCommentDate() {
+		return commentDate;
+	}
+
+	/**
+	 * Returns the comment hour
+	 * 
+	 * @return String hour
+	 */
+	public String getCommentHour() {
+		return commentHour;
 	}
 }
