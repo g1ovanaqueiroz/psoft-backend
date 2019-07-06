@@ -172,7 +172,7 @@ public class SubjectController {
 	 * @return updated subject
 	 */
 	@CrossOrigin
-	@PostMapping(value = "/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/like", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Subject> addLike(@RequestBody Like like) {
 		try {
 			return new ResponseEntity<Subject>(subjectService.addLike(like.getId(), like.getEmail()), HttpStatus.OK);
