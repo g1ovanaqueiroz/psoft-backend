@@ -25,6 +25,8 @@ import com.example.demo.service.StudentService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 
@@ -33,6 +35,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @author Giovana Brito Oliveria
  *
  */
+@Api(value = "Usuário", description = "Controller de usuário")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/v1/students")
@@ -55,6 +58,7 @@ public class StudentController {
 	 * @param login user email and password
 	 * @return StudentDTO
 	 */
+	@ApiOperation(value = "Recebe o email e a senha do usuário no corpo da requisição e faz o login, retorna um objeto possuindo os dados do usuário e o token")
 	@CrossOrigin
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -83,6 +87,7 @@ public class StudentController {
 	 * @param student Student
 	 * @return new StudentDTO
 	 */
+	@ApiOperation(value = "Recebe um usuário no corpo da requisição e o cadastra no sistema, retornando um objeto que contém os dados do usuário e um token")
 	@CrossOrigin
 	@PostMapping(value = "/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -110,6 +115,7 @@ public class StudentController {
 	 * @param email user email
 	 * @return HttpStatus
 	 */
+	@ApiOperation(value = "Deleta um usuário do sistema através do seu email, recebe o email como @PathVariable no caminha /api/v1/students/delete/{email}")
 	@CrossOrigin
 	@DeleteMapping(value = "/delete/{email}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity delete(@PathVariable String email) {
@@ -127,6 +133,7 @@ public class StudentController {
 	 * @param student User to update
 	 * @return StudentDTO
 	 */
+	@ApiOperation(value = "Atualiza um usuário, recebe o objeto usuário (Student) através de um json no corpo da reuquisição")
 	@CrossOrigin
 	@PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<StudentDTO> update(@RequestBody Student student) {
