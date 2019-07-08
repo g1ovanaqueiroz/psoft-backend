@@ -15,8 +15,7 @@ public class SpringEmailController {
 				SpringEmailController.class.getPackage().getName());
 
 		Mailer mailer = applicationContext.getBean(Mailer.class);
-		mailer.enviar(new Message("UCDb <classificaccucdb@gmail.com>",
-				Arrays.asList("Giovana <giovana.oliveira@ccc.ufcg.edu.br>"), "Boas vindas UCDb",
+		mailer.enviar(new Message("UCDb <classificaccucdb@gmail.com>", Arrays.asList(userEmail), "Boas vindas UCDb",
 				"Olá! Seja bem vindo ao Classifica CC! \nObrigado por se cadastrar, aproveite a estadia. \n\n\nAtt, equipe UCDb"));
 
 		applicationContext.close();
