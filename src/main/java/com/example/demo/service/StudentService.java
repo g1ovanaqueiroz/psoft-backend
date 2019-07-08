@@ -38,8 +38,9 @@ public class StudentService {
 	 * @return new Student
 	 */
 	public Student create(Student student) {
-		mail.sendWellcomeEmail(student.getEmail());
-		return studentDAO.save(student);
+		Student student2 = studentDAO.save(student);
+		mail.sendWellcomeEmail(student2.getEmail());
+		return student2;
 	}
 
 	/**
