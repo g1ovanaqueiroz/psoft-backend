@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.exception.user.StudentNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 import com.example.demo.model.Login;
 import com.example.demo.model.Student;
