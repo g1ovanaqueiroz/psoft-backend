@@ -15,6 +15,6 @@ Classificações e Reviews de cursos da UFCG. O objetivo do sistema é adicionar
 
 Link para descrição do projeto: https://docs.google.com/document/d/e/2PACX-1vQg_32KOtk0Ok4EGrpZB_YlmWlRlOF-2fpuo7XfcncXnoSLKrlNy83Ymw-VffVN0BioqjAHnkS2TjJf/pub
 
-## Documentação Swagger
+## Aplicação no ar
 
-Link para documentação Swagger:https://classifica-cc.herokuapp.com/api/swagger-ui.html#/
+Link para aplicação:https://marcellasiqueira.github.io/psoft-frontend/#/
